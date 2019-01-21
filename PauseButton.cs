@@ -34,7 +34,8 @@ public class PauseButton : MonoBehaviour {
             pausePanel.SetActive (true);
 			pausesCount--;
 			pausesRemaining.GetComponent<Text> ().text = pausesCount + " pauses remaining";
-		}
+            AudioListener.pause = true;
+        }
 
 		else{
 			Time.timeScale = 1;
@@ -50,7 +51,8 @@ public class PauseButton : MonoBehaviour {
 
             pausePanel.SetActive (false);
 			if (pausesCount <= 0) Object.Destroy(gameObject);
-		}
+            AudioListener.pause = false;
+        }
 	}
 
 	private void OnSpawn(){
@@ -60,7 +62,7 @@ public class PauseButton : MonoBehaviour {
 	void Awake(){
 		Messenger.AddListener (GameEvent.SPAWNED, OnSpawn);
 		audioManager = GameObject.FindObjectOfType<AudioManager>();
-	}
+    }
 
 	void OnDestroy(){
 		Messenger.RemoveListener (GameEvent.SPAWNED, OnSpawn);

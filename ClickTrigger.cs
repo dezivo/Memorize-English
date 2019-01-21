@@ -14,7 +14,7 @@ public class ClickTrigger : MonoBehaviour {
 
 	public void OnPress(){
 		spawner.OnSelectAnimation (panel);
-		button.enabled = false;
+		//button.enabled = false;
 
 		StartCoroutine (Waiter ());
 	}
@@ -24,9 +24,9 @@ public class ClickTrigger : MonoBehaviour {
 		spawner.SendWord (text, panel);
 	}	
 
-	void Awake(){
+	/*void Awake(){
 		Messenger.AddListener (GameEvent.NOT_MATCHED, EnableButton);
-	}
+	}*/
 
 	void Start () {
 		panel = (Image) GetComponent(typeof(Image));
@@ -36,11 +36,11 @@ public class ClickTrigger : MonoBehaviour {
 	}
 
 	void OnDestroy(){
-		Messenger.RemoveListener (GameEvent.NOT_MATCHED, EnableButton);
+		//Messenger.RemoveListener (GameEvent.NOT_MATCHED, EnableButton);
 	}
 		
-	private void EnableButton(){
+	/*private void EnableButton(){
 		button.enabled = true;
-	}
+	}*/
 
 }

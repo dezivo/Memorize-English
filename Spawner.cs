@@ -38,6 +38,7 @@ public class Spawner : MonoBehaviour {
 	private bool isEnSelected;
 	private bool isWorking = true;
 	private bool isMatched = false;
+    private bool isDrawn = false;
 	private List<string> enWords = new List<string> ();
 	private List<string> ptWords = new List<string> ();
 
@@ -303,7 +304,7 @@ public class Spawner : MonoBehaviour {
 		manager.ResetMatchSequence ();
 
 		OnNoMatchAnimation(panel);
-		Messenger.Broadcast (GameEvent.NOT_MATCHED);
+		//Messenger.Broadcast (GameEvent.NOT_MATCHED);
 
         Object.Destroy (GameObject.FindGameObjectWithTag ("Lives"));
 
@@ -356,20 +357,34 @@ public class Spawner : MonoBehaviour {
 						Matched (text, panel);
 
 					}
-				}
 
-				if (!isMatched) {
+                    else if (text.text == enWords[i] && index == i)
+                    {
+
+                        isMatched = false;
+                        isDrawn = true;
+
+                    }
+
+                }
+
+                if (isDrawn)
+                {
+                    panel.color = new Color32(255, 107, 107, 255);
+                }
+
+				if (!isMatched && !isDrawn) {
 
 					NotMatched (panel);
 
 				}
 
-				//OnNoMatchAnimation (panel);
-				Messenger.Broadcast (GameEvent.NOT_MATCHED);
+				//Messenger.Broadcast (GameEvent.NOT_MATCHED);
 
 				isOtherSelected = false;
 				isEnSelected = false;
 				isMatched = false;
+                isDrawn = false;
 			}
 
 			//A primeira palavra selecionada é portuguesa
@@ -383,21 +398,35 @@ public class Spawner : MonoBehaviour {
 						Matched (text, panel);
 
 					}
-				}
 
-				if (!isMatched) {
+                    else if (text.text == ptWords[i] && index == i)
+                    {
+
+                        isMatched = false;
+                        isDrawn = true;
+
+                    }
+
+                }
+
+                if (isDrawn)
+                {
+                    panel.color = new Color32(255, 107, 107, 255);
+                }
+
+                if (!isMatched && !isDrawn) {
 
 					NotMatched (panel);
 
 				}
 
-				//OnNoMatchAnimation (panel);
-				Messenger.Broadcast (GameEvent.NOT_MATCHED);
+				//Messenger.Broadcast (GameEvent.NOT_MATCHED);
 
 				isOtherSelected = false;
 				isEnSelected = false;
 				isMatched = false;
-			}
+                isDrawn = false;
+            }
 		}
 	}
 
