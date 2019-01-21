@@ -46,7 +46,7 @@ public class AudioManager : MonoBehaviour {
 
     public void UnMuteSound (){
 		musicSource.volume = 0.12f;
-	}
+    }
 
     void Awake() { //Singleton
 		int numGameSessions = FindObjectsOfType<AudioManager>().Length;
