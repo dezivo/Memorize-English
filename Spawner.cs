@@ -41,8 +41,10 @@ public class Spawner : MonoBehaviour {
     private bool isDrawn = false;
 	private List<string> enWords = new List<string> ();
 	private List<string> ptWords = new List<string> ();
+    private Color32 redColor = new Color32(255, 107, 107, 255);
+    private Color32 greenColor = new Color32(0, 255, 50, 255);
 
-	void Start () {
+    void Start () {
 
 		manager = GameObject.FindObjectOfType<Manager>();
 		canvas = GameObject.FindGameObjectWithTag ("Canvas");
@@ -121,20 +123,7 @@ public class Spawner : MonoBehaviour {
     }
 		
 	public void OnSelectAnimation(Image panel){
-		panel.color = new Color32 (0, 255, 50, 255); //matchColor
-	}
-
-	public void OnMatchAnimation(Image panel){
-		panel.enabled = false;
-		panelAux.enabled = false;
-		audioManager.PlayGemsSound ();
-	
-	}
-
-	public void OnNoMatchAnimation(Image panel){
-		panel.color = new Color32 (255, 107, 107, 255);
-		panelAux.color = new Color32 (255, 107, 107, 255);
-		audioManager.PlayDamageSound ();
+		panel.color = greenColor; //matchColor
 	}
 
 	public void OnGameLostAnimation(){
@@ -289,13 +278,15 @@ public class Spawner : MonoBehaviour {
 	void Matched (Text text, Image panel)
 	{
 		manager.IncreaseMatchSequence();
-
+        
         Object.Destroy(text);
         Object.Destroy(textAux);
 
-		OnMatchAnimation (panel);
+        panel.enabled = false;
+        panelAux.enabled = false;
+        audioManager.PlayGemsSound();
 
-		pairsMatched++;
+        pairsMatched++;
 		scoreManager.UpScore (panel, panelAux);
 	}
 
@@ -303,8 +294,10 @@ public class Spawner : MonoBehaviour {
 	{
 		manager.ResetMatchSequence ();
 
-		OnNoMatchAnimation(panel);
-		//Messenger.Broadcast (GameEvent.NOT_MATCHED);
+        panel.color = redColor;
+        panelAux.color = redColor;
+        audioManager.PlayDamageSound();
+        //Messenger.Broadcast (GameEvent.NOT_MATCHED);
 
         Object.Destroy (GameObject.FindGameObjectWithTag ("Lives"));
 
@@ -370,7 +363,7 @@ public class Spawner : MonoBehaviour {
 
                 if (isDrawn)
                 {
-                    panel.color = new Color32(255, 107, 107, 255);
+                    panel.color = redColor;
                 }
 
 				if (!isMatched && !isDrawn) {
@@ -411,7 +404,7 @@ public class Spawner : MonoBehaviour {
 
                 if (isDrawn)
                 {
-                    panel.color = new Color32(255, 107, 107, 255);
+                    panel.color = redColor;
                 }
 
                 if (!isMatched && !isDrawn) {

@@ -14,9 +14,9 @@ public class ClickTrigger : MonoBehaviour {
 
 	public void OnPress(){
 		spawner.OnSelectAnimation (panel);
-		//button.enabled = false;
-
-		StartCoroutine (Waiter ());
+        //button.enabled = false;
+        //spawner.SendWord(text, panel);
+        StartCoroutine(Waiter ());
 	}
 
 	IEnumerator Waiter() {
